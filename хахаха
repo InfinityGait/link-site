@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Втеча кнопки</title>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f0f0f0;
+      overflow: hidden;
+      margin: 0;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      position: absolute;
+      transition: 0.2s;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button id="runBtn">Натисни мене!</button>
+
+  <script>
+    const btn = document.getElementById('runBtn');
+
+    document.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const distance = 100;
+
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      const d = Math.sqrt(dx * dx + dy * dy);
+
+      if (d < distance) {
+        const offsetX = (Math.random() - 0.5) * 300;
+        const offsetY = (Math.random() - 0.5) * 300;
+
+        const newX = Math.min(
+          Math.max(0, rect.left + offsetX),
+          window.innerWidth - rect.width
+        );
+        const newY = Math.min(
+          Math.max(0, rect.top + offsetY),
+          window.innerHeight - rect.height
+        );
+
+        btn.style.left = newX + 'px';
+        btn.style.top = newY + 'px';
+      }
+    });
+
+    btn.addEventListener('click', () => {
+      alert('Ти все ж натиснув!');
+    });
+  </script>
+</body>
+</html>
